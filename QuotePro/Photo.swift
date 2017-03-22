@@ -9,15 +9,8 @@
 import UIKit
 
 class Photo: NSObject {
-
-    static func getPhoto(_ completionHandler: (UIImage) -> Void) {
-        var request = ImageRequest(URL: URL(string: "http://lorempixel.com/200/300)")!)
-        request.memoryCacheStorageAllowed = false
-        Nuke.taskWith(request) { response in
-            let image = response.image
-            completionHandler(image!)
-            }.resume()
-    }
+    
+    // MARK: Properties
+    var url = ""
+    var image = UIImage()
 }
-
-
