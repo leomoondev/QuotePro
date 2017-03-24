@@ -8,20 +8,15 @@
 
 import UIKit
 
-import UIKit
-
 class DetailViewController: UIViewController {
     
     // MARK: Outlets
-    
     @IBOutlet weak var xibView: UIView!
     
     // MARK: Properties
-    
     var combineObject = CombineObject()
     
     // MARK: ViewDidLoad
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,8 +33,15 @@ class DetailViewController: UIViewController {
     }
     
     // MARK: Actions
-    
-    @IBAction func publishButtonPressed(_ sender: AnyObject) {
+    @IBAction func shareButtonPressed(_ sender: AnyObject) {
         // Do publishing
+        UIGraphicsBeginImageContextWithOptions(xibView.bounds.size, true, 0)
+        xibView.drawHierarchy(in: xibView.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let objectsToShare = [image]
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        self.present(activityVC, animated: true, completion: nil)
     }
 }
