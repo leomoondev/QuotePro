@@ -9,40 +9,34 @@
 import UIKit
 
 protocol ViewControllerDelegate: class {
+    
     func newComp(_ comp: CombineObject)
 }
 
 class ViewController: UIViewController {
     
     // MARK: Outlets
-    
-    
     @IBOutlet weak var xibView: UIView!
-    // MARK: Properties
     
+    // MARK: Properties
     var combineObject = CombineObject()
     var quoteView: QuoteView!
-
     weak var delegate: ViewControllerDelegate?
     
     // MARK: ViewDidLoad
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let objects = Bundle.main.loadNibNamed("QuoteView", owner: nil, options: [:]),
-            let view = objects.first as? QuoteView {
-            view.authorLabel.alpha = 0
-            view.quoteLabel.alpha = 0
-            view.photoImageView.alpha = 0
-            xibView.addSubview(view)
-            xibView.clipsToBounds = true
-        }
-        
+        //load QuoteView.xib
+        self.view.backgroundColor = UIColor.white
+        quoteView = Bundle.main.loadNibNamed("QuoteView",
+                                             owner: nil,
+                                             options: nil)?.first! as? QuoteView
+        quoteView?.frame.size = xibView.frame.size
+        xibView.addSubview(quoteView!)
     }
         
     // MARK: Actions
-    
     @IBAction func getQuoteButtonPressed(_ sender: AnyObject) {
         
         getQuote()
